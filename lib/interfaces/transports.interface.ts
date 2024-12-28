@@ -4,7 +4,10 @@ import { AuditData } from './audit.interface';
 export enum TransportMethods {
   CONSOLE = 'console',
   MONGOOSE = 'mongoose',
+  POSTGRES = 'postgresql',
+  MYSQL = 'mysql',
   SNS = 'sns',
+  REDIS = 'redis'
 }
 
 export interface BaseTransport {
@@ -29,7 +32,23 @@ export interface MongooseTransportOptions {
   connectionString: string;
 }
 
+export interface PostgresTransportOptions {
+  connectionString: string; // 'postgres://user:pass@example.com:5432/dbname'
+}
+
+export interface MySQLTransportOptions {
+  connectionString: string;
+}
+
+export interface RedisTransportOptions {
+  connectionString: string; // 'redis://:authpassword@127.0.0.1:6380/4'
+  channel: string; // 'audit-channel'
+}
+
 export type TransportOptions =
   | ConsoleTransportOptions
   | MongooseTransportOptions
-  | SNSTransportOptions;
+  | PostgresTransportOptions
+  | MySQLTransportOptions
+  | SNSTransportOptions
+  | RedisTransportOptions;
